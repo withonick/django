@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="post-form">
+        <div class="profile-img">
+            <img src="{% static 'messenger/images/profile-img.jpg' %}">
+        </div>
+        <div class="create_post_form">
+            <form action="#">
+                <textarea name="" placeholder="Что происходит?" maxlength="280" oninput="auto_grow(this)"></textarea>
+                <div class="form-icons">
+                    <a href="#"><i class="bi bi-image" style="color: #4154F1;" id="imgBtn"></i></a>
+                    <a href="#"><i class="bi bi-person-circle" style="color: #4154f1"></i></a>
+                    <a href="#"><i class="bi bi-emoji-smile" style="color: #4154f1;"></i></a>
+
+                    <input type="file" style="display: none" id="imgInput" onchange="readURL(this)">
+                    <button type="submit">Отправить</button>
+                </div>
+            </form>
+                <img id="postImage" src="#" alt="your image" />
+        </div>
+    </div>
+
+
+    <script>
+        function auto_grow(element) {
+            element.style.height = "5px";
+            element.style.height = (element.scrollHeight)+"px";
+    }
+
+
+        const imgBtn = document.getElementById('imgBtn');
+        const imgInput = document.getElementById('imgInput');
+
+        imgBtn.addEventListener('click', ()=> {
+            imgInput.click();
+        })
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                let reader = new FileReader();
+
+            reader.onload = function (e) {
+              $('#postImage').attr('src', e.target.result).width(150).height(200);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+      }
+    }
+
+    </script>
+
+{% endblock %}
